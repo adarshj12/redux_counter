@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+// to require the state from global store
+import { useSelector,useDispatch } from 'react-redux';
+
+import { incNumber,decNumber } from './actions';
 
 function App() {
+  const myState = useSelector((state)=>state.changeNumber);
+  
+  //becuse with the help of store, we passed the root reducer , which itself has
+  // hcangeNumber function passed into it.
+
+  const dispatch =useDispatch()
+  //dispatch triggers the action
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>increment/decrement counter</h1>
+      <h2><em>using REDUX</em></h2>
+      <button title='decrement' style={{fontSize:'50px'}} onClick={()=>dispatch(decNumber())}>-</button>
+      <input type="text" style={{fontSize:'50px',width:'50px'}}  value={myState}/>
+      <button title='increment' style={{fontSize:'50px'}} onClick={()=>dispatch(incNumber(5))}>+</button>
     </div>
   );
 }
